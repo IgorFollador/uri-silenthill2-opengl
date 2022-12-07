@@ -43,6 +43,7 @@ CScene6::CScene6()
 	pTextures->CreateTextureClamp(3, "../Scene6/skybox/up.jpg");
 	pTextures->CreateTextureClamp(4, "../Scene6/skybox/front.jpg");
 	pTextures->CreateTextureClamp(5, "../Scene6/skybox/front.jpg");
+	pTextures->CreateTextureClamp(6, "../Scene6/tree.png");
 
 	// Carrega o objeto
 	pTerreno = NULL;
@@ -359,21 +360,9 @@ int CScene6::DrawGLScene(void)	// Função que desenha a cena
 	glDisable(GL_LIGHTING);	// Desabilita ilumnação
 
 
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	glEnable(GL_ALPHA_TEST);
-	glAlphaFunc(GL_GREATER, 0.5);
-
-	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-	
-	pTextures->ApplyTexture(7);
-	glPushMatrix();
-	glTranslatef(0.0f, 180.0f, 0.0f);
-	glPopMatrix();
-
-	glDisable(GL_ALPHA_TEST);
-	glDisable(GL_BLEND);
-
+	DrawTree(180.0f, -50.f, 0.0f, 8, 9, 8, 6);
+	DrawTree(180.0f, -50.f, 60.0f, 8, 9, 8, 6);
+	glDisable(GL_TEXTURE_2D);
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//                               DESENHA OS OBJETOS DA CENA (FIM)
@@ -526,6 +515,39 @@ void CScene6::KeyDownPressed(WPARAM	wParam) // Tratamento de teclas pressionadas
 
 	}
 
+}
+
+void CScene6::DrawTree(float pX, float pY, float pZ,
+	float sX, float sY, float sZ,
+	int texID)
+{
+	glDisable(GL_CULL_FACE);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glEnable(GL_ALPHA_TEST);
+	glAlphaFunc(GL_GREATER, 0.95f);
+
+	pTextures->ApplyTexture(texID);
+	glPushMatrix();
+	glTranslatef(pX, pY, pZ);
+	glScalef(sX, sY, sZ);
+	glBegin(GL_QUADS);
+	glNormal3f(0.0f, 0.0f, 1.0f);
+	glTexCoord2f(0.0f, 0.0f); glVertex3f(-5.0, 0.0, 0.0);
+	glTexCoord2f(1.0f, 0.0f); glVertex3f(5.0, 0.0, 0.0);
+	glTexCoord2f(1.0f, 1.0f); glVertex3f(5.0, 10.0, 0.0);
+	glTexCoord2f(0.0f, 1.0f); glVertex3f(-5.0, 10.0, 0.0);
+
+	glTexCoord2f(0.0f, 0.0f); glVertex3f(0.0, 0.0, 5.0);
+	glTexCoord2f(1.0f, 0.0f); glVertex3f(0.0, 0.0, -5.0);
+	glTexCoord2f(1.0f, 1.0f); glVertex3f(0.0, 10.0, -5.0);
+	glTexCoord2f(0.0f, 1.0f); glVertex3f(0.0, 10.0, 5.0);
+	glEnd();
+	glPopMatrix();
+
+	glDisable(GL_ALPHA_TEST);
+	glDisable(GL_BLEND);
+	glEnable(GL_CULL_FACE);
 }
 
 //	Cria um grid horizontal ao longo dos eixos X e Z

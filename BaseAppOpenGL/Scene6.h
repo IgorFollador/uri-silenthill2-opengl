@@ -31,6 +31,9 @@ public:
 		float width, float height, float length,
 		CTexture* pTextures);
 
+	void DrawTree(float pX = 0.0f, float pY = 0.0f, float pZ = 0.0f,
+		float sX = 1.0f, float sY = 1.0f, float sZ = 1.0f,
+		int texID = -1);
 private:
 
 	bool	keys[256];		// Array usado para rotinas do teclado
