@@ -53,6 +53,10 @@ CScene6::CScene6()
 	pFloor = new CModel_3DS();
 	pFloor->Load("../Scene6/vwfloor.3DS");
 
+	pSideWalk = NULL;
+	pSideWalk = new CModel_3DS();
+	pSideWalk->Load("../Scene6/sidewalk.3DS");
+
 	pBathroom = NULL;
 	pBathroom = new CModel_3DS();
 	pBathroom->Load("../Scene6/bathroom.3DS");
@@ -121,6 +125,12 @@ CScene6::~CScene6(void)
 	{
 		delete pFloor;
 		pFloor = NULL;
+	}
+
+	if (pSideWalk)
+	{
+		delete pSideWalk;
+		pSideWalk = NULL;
 	}
 
 	if (pBathroom)
@@ -273,6 +283,15 @@ int CScene6::DrawGLScene(void)	// Função que desenha a cena
 	glPopAttrib();
 
 
+	// Calçada
+	glPushAttrib(GL_TEXTURE_BIT);
+	glPushMatrix();
+		glRotatef(-90.0f, 0.0f, 1.0f, 0.0f);
+		pSideWalk->Draw();
+	glPopMatrix();
+	glPopAttrib();
+
+
 	// Banheiro
 	glPushAttrib(GL_TEXTURE_BIT);
 	glPushMatrix();
@@ -295,8 +314,8 @@ int CScene6::DrawGLScene(void)	// Função que desenha a cena
 	glPushAttrib(GL_TEXTURE_BIT);
 	glPushMatrix();
 	glRotatef(-90.0f, 0.0f, 1.0f, 0.0f);
-	pBoxes->Draw();
-	glPopMatrix();
+		pBoxes->Draw();
+		glPopMatrix();
 	glPopAttrib();
 
 	

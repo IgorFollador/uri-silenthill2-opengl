@@ -79,6 +79,7 @@ private:
 
 	CModel_3DS* pTerreno;
 	CModel_3DS* pFloor;
+	CModel_3DS* pSideWalk;
 	CModel_3DS* pBathroom;
 	CModel_3DS* pTrash;
 	CModel_3DS* pBoxes;
