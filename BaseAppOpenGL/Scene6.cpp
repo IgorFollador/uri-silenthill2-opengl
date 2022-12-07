@@ -355,14 +355,13 @@ int CScene6::DrawGLScene(void)	// Função que desenha a cena
 	glPopMatrix();
 	glPopAttrib();
 
-	glDisable(GL_FOG);
-	glDisable(GL_LIGHT0);	// Desliga Lampada 0	
-	glDisable(GL_LIGHTING);	// Desabilita ilumnação
-
-
 	DrawTree(180.0f, -45.f, -150.0f, 8, 15, 8, 6);
 	DrawTree(180.0f, -45.f, -100.0f, 8, 15, 8, 6);
 	DrawTree(250.0f, -100.f, 90.0f, 20, 30, 20, 6);
+
+	glDisable(GL_FOG);
+	glDisable(GL_LIGHT0);	// Desliga Lampada 0	
+	glDisable(GL_LIGHTING);	// Desabilita ilumnação
 	glDisable(GL_TEXTURE_2D);
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
