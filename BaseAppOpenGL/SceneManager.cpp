@@ -16,6 +16,7 @@ CSceneManager::CSceneManager(int l, int a)
 	// Cria a cena principal
 	uiCurrentScene = 6;
 	this->Scene = new CScene6();
+	sndPlaySound("WhiteNoiz.wav", SND_ASYNC);
 }
 
 

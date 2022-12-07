@@ -43,15 +43,20 @@ CScene6::CScene6()
 	pTextures->CreateTextureClamp(3, "../Scene6/skybox/up.jpg");
 	pTextures->CreateTextureClamp(4, "../Scene6/skybox/front.jpg");
 	pTextures->CreateTextureClamp(5, "../Scene6/skybox/front.jpg");
+	pTextures->CreateTextureClamp(6, "../Scene6/tree.png");
 
 	// Carrega o objeto
 	pTerreno = NULL;
 	pTerreno = new CModel_3DS();
-	pTerreno->Load("../Scene6/terreno/terreno.3DS");
+	pTerreno->Load("../Scene6/terreno/terrenoshadow.3DS");
 
 	pFloor = NULL;
 	pFloor = new CModel_3DS();
-	pFloor->Load("../Scene6/floor.3DS");
+	pFloor->Load("../Scene6/vwfloor.3DS");
+
+	pSideWalk = NULL;
+	pSideWalk = new CModel_3DS();
+	pSideWalk->Load("../Scene6/sidewalk.3DS");
 
 	pBathroom = NULL;
 	pBathroom = new CModel_3DS();
@@ -60,6 +65,10 @@ CScene6::CScene6()
 	pTrash = NULL;
 	pTrash = new CModel_3DS();
 	pTrash->Load("../Scene6/trash.3DS");
+
+	pBoxes = NULL;
+	pBoxes = new CModel_3DS();
+	pBoxes->Load("../Scene6/boxes.3DS");
 
 	pStop = NULL;
 	pStop = new CModel_3DS();
@@ -119,6 +128,12 @@ CScene6::~CScene6(void)
 		pFloor = NULL;
 	}
 
+	if (pSideWalk)
+	{
+		delete pSideWalk;
+		pSideWalk = NULL;
+	}
+
 	if (pBathroom)
 	{
 		delete pBathroom;
@@ -129,6 +144,12 @@ CScene6::~CScene6(void)
 	{
 		delete pTrash;
 		pTrash = NULL;
+	}
+
+	if (pBoxes)
+	{
+		delete pBoxes;
+		pBoxes = NULL;
 	}
 
 	if (pStop)
@@ -194,6 +215,7 @@ int CScene6::DrawGLScene(void)	// Função que desenha a cena
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//                               DESENHA OS OBJETOS DA CENA (INÍCIO)
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
 	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 
 	// Desenhar a Lâmpada
@@ -262,6 +284,15 @@ int CScene6::DrawGLScene(void)	// Função que desenha a cena
 	glPopAttrib();
 
 
+	// Calçada
+	glPushAttrib(GL_TEXTURE_BIT);
+	glPushMatrix();
+		glRotatef(-90.0f, 0.0f, 1.0f, 0.0f);
+		pSideWalk->Draw();
+	glPopMatrix();
+	glPopAttrib();
+
+
 	// Banheiro
 	glPushAttrib(GL_TEXTURE_BIT);
 	glPushMatrix();
@@ -277,6 +308,15 @@ int CScene6::DrawGLScene(void)	// Função que desenha a cena
 		glRotatef(-90.0f, 0.0f, 1.0f, 0.0f);
 		pTrash->Draw();
 	glPopMatrix();
+	glPopAttrib();
+
+
+	// Caixas
+	glPushAttrib(GL_TEXTURE_BIT);
+	glPushMatrix();
+	glRotatef(-90.0f, 0.0f, 1.0f, 0.0f);
+		pBoxes->Draw();
+		glPopMatrix();
 	glPopAttrib();
 
 	
@@ -320,21 +360,9 @@ int CScene6::DrawGLScene(void)	// Função que desenha a cena
 	glDisable(GL_LIGHTING);	// Desabilita ilumnação
 
 
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	glEnable(GL_ALPHA_TEST);
-	glAlphaFunc(GL_GREATER, 0.5);
-
-	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-	
-	pTextures->ApplyTexture(7);
-	glPushMatrix();
-	glTranslatef(0.0f, 180.0f, 0.0f);
-	glPopMatrix();
-
-	glDisable(GL_ALPHA_TEST);
-	glDisable(GL_BLEND);
-
+	DrawTree(180.0f, -50.f, 0.0f, 8, 9, 8, 6);
+	DrawTree(180.0f, -50.f, 60.0f, 8, 9, 8, 6);
+	glDisable(GL_TEXTURE_2D);
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//                               DESENHA OS OBJETOS DA CENA (FIM)
@@ -487,6 +515,39 @@ void CScene6::KeyDownPressed(WPARAM	wParam) // Tratamento de teclas pressionadas
 
 	}
 
+}
+
+void CScene6::DrawTree(float pX, float pY, float pZ,
+	float sX, float sY, float sZ,
+	int texID)
+{
+	glDisable(GL_CULL_FACE);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glEnable(GL_ALPHA_TEST);
+	glAlphaFunc(GL_GREATER, 0.95f);
+
+	pTextures->ApplyTexture(texID);
+	glPushMatrix();
+	glTranslatef(pX, pY, pZ);
+	glScalef(sX, sY, sZ);
+	glBegin(GL_QUADS);
+	glNormal3f(0.0f, 0.0f, 1.0f);
+	glTexCoord2f(0.0f, 0.0f); glVertex3f(-5.0, 0.0, 0.0);
+	glTexCoord2f(1.0f, 0.0f); glVertex3f(5.0, 0.0, 0.0);
+	glTexCoord2f(1.0f, 1.0f); glVertex3f(5.0, 10.0, 0.0);
+	glTexCoord2f(0.0f, 1.0f); glVertex3f(-5.0, 10.0, 0.0);
+
+	glTexCoord2f(0.0f, 0.0f); glVertex3f(0.0, 0.0, 5.0);
+	glTexCoord2f(1.0f, 0.0f); glVertex3f(0.0, 0.0, -5.0);
+	glTexCoord2f(1.0f, 1.0f); glVertex3f(0.0, 10.0, -5.0);
+	glTexCoord2f(0.0f, 1.0f); glVertex3f(0.0, 10.0, 5.0);
+	glEnd();
+	glPopMatrix();
+
+	glDisable(GL_ALPHA_TEST);
+	glDisable(GL_BLEND);
+	glEnable(GL_CULL_FACE);
 }
 
 //	Cria um grid horizontal ao longo dos eixos X e Z

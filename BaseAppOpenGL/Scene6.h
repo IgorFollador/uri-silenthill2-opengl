@@ -31,6 +31,9 @@ public:
 		float width, float height, float length,
 		CTexture* pTextures);
 
+	void DrawTree(float pX = 0.0f, float pY = 0.0f, float pZ = 0.0f,
+		float sX = 1.0f, float sY = 1.0f, float sZ = 1.0f,
+		int texID = -1);
 private:
 
 	bool	keys[256];		// Array usado para rotinas do teclado
@@ -79,8 +82,10 @@ private:
 
 	CModel_3DS* pTerreno;
 	CModel_3DS* pFloor;
+	CModel_3DS* pSideWalk;
 	CModel_3DS* pBathroom;
 	CModel_3DS* pTrash;
+	CModel_3DS* pBoxes;
 	CModel_3DS* pStop;
 	CModel_3DS* pPost;
 	CModel_3DS* pFence;

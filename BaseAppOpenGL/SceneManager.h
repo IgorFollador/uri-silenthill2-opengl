@@ -6,6 +6,8 @@
 #include "Scene4.h"
 #include "Scene5.h"
 #include "Scene6.h"
+#include "Windows.h"
+#include "MMSystem.h"
 
 class CSceneManager : public CSceneBaseClass
 {
