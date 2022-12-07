@@ -1,5 +1,2 @@
-﻿  Main.cpp
-C:\uri-silenthill2-opengl\BaseAppOpenGL\Main.cpp(185,3): warning C4838: a conversão de 'int' em 'BYTE' requer uma conversão de restrição
-  SceneManager.cpp
-  Gerando Código...
+﻿  SceneManager.cpp
   BaseAppOpenGL.vcxproj -> C:\uri-silenthill2-opengl\Debug\BaseAppOpenGL.exe
