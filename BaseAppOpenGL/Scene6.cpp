@@ -47,11 +47,11 @@ CScene6::CScene6()
 	// Carrega o objeto
 	pTerreno = NULL;
 	pTerreno = new CModel_3DS();
-	pTerreno->Load("../Scene6/terreno/terreno.3DS");
+	pTerreno->Load("../Scene6/terreno/terrenoshadow.3DS");
 
 	pFloor = NULL;
 	pFloor = new CModel_3DS();
-	pFloor->Load("../Scene6/floor.3DS");
+	pFloor->Load("../Scene6/vwfloor.3DS");
 
 	pBathroom = NULL;
 	pBathroom = new CModel_3DS();
@@ -60,6 +60,10 @@ CScene6::CScene6()
 	pTrash = NULL;
 	pTrash = new CModel_3DS();
 	pTrash->Load("../Scene6/trash.3DS");
+
+	pBoxes = NULL;
+	pBoxes = new CModel_3DS();
+	pBoxes->Load("../Scene6/boxes.3DS");
 
 	pStop = NULL;
 	pStop = new CModel_3DS();
@@ -131,6 +135,12 @@ CScene6::~CScene6(void)
 		pTrash = NULL;
 	}
 
+	if (pBoxes)
+	{
+		delete pBoxes;
+		pBoxes = NULL;
+	}
+
 	if (pStop)
 	{
 		delete pStop;
@@ -194,6 +204,7 @@ int CScene6::DrawGLScene(void)	// Função que desenha a cena
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//                               DESENHA OS OBJETOS DA CENA (INÍCIO)
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
 	glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 
 	// Desenhar a Lâmpada
@@ -276,6 +287,15 @@ int CScene6::DrawGLScene(void)	// Função que desenha a cena
 	glPushMatrix();
 		glRotatef(-90.0f, 0.0f, 1.0f, 0.0f);
 		pTrash->Draw();
+	glPopMatrix();
+	glPopAttrib();
+
+
+	// Caixas
+	glPushAttrib(GL_TEXTURE_BIT);
+	glPushMatrix();
+	glRotatef(-90.0f, 0.0f, 1.0f, 0.0f);
+	pBoxes->Draw();
 	glPopMatrix();
 	glPopAttrib();
 

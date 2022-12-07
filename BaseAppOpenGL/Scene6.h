@@ -81,6 +81,7 @@ private:
 	CModel_3DS* pFloor;
 	CModel_3DS* pBathroom;
 	CModel_3DS* pTrash;
+	CModel_3DS* pBoxes;
 	CModel_3DS* pStop;
 	CModel_3DS* pPost;
 	CModel_3DS* pFence;

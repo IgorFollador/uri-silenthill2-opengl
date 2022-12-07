@@ -1,2 +1,5 @@
-﻿  Scene6.cpp
-  BaseAppOpenGL.vcxproj -> D:\Downloads\Salvos\TrabalhoFinal_JayUP\BaseAppOpenGL_T2020\Debug\BaseAppOpenGL.exe
+﻿  Main.cpp
+C:\uri-silenthill2-opengl\BaseAppOpenGL\Main.cpp(185,3): warning C4838: a conversão de 'int' em 'BYTE' requer uma conversão de restrição
+  SceneManager.cpp
+  Gerando Código...
+  BaseAppOpenGL.vcxproj -> C:\uri-silenthill2-opengl\Debug\BaseAppOpenGL.exe
