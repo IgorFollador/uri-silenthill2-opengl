@@ -43,7 +43,7 @@ CScene6::CScene6()
 	pTextures->CreateTextureClamp(3, "../Scene6/skybox/up.jpg");
 	pTextures->CreateTextureClamp(4, "../Scene6/skybox/front.jpg");
 	pTextures->CreateTextureClamp(5, "../Scene6/skybox/front.jpg");
-	pTextures->CreateTextureClamp(6, "../Scene6/tree.png");
+	pTextures->CreateTextureTGA(6, "../Scene6/tree.png");
 
 	// Carrega o objeto
 	pTerreno = NULL;
@@ -360,8 +360,9 @@ int CScene6::DrawGLScene(void)	// Função que desenha a cena
 	glDisable(GL_LIGHTING);	// Desabilita ilumnação
 
 
-	DrawTree(180.0f, -50.f, 0.0f, 8, 9, 8, 6);
-	DrawTree(180.0f, -50.f, 60.0f, 8, 9, 8, 6);
+	DrawTree(180.0f, -45.f, -150.0f, 8, 15, 8, 6);
+	DrawTree(180.0f, -45.f, -100.0f, 8, 15, 8, 6);
+	DrawTree(250.0f, -100.f, 90.0f, 20, 30, 20, 6);
 	glDisable(GL_TEXTURE_2D);
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
